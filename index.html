@@ -95,7 +95,7 @@ let res = await fetch("https://ungaudy-belle-inequilateral.ngrok-free.dev/chat?p
 let data = await res.json()
 
 document.getElementById("chat").innerHTML +=
-"<div class='ai'>"+data.response+"</div>"
+document.getElementById("chat").innerHTML += "<div class='ai'>"+data.response.replace(/\\n/g,"<br>")+"</div>"
 
 window.scrollTo(0,document.body.scrollHeight)
 
