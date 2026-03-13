@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panterra AI</title>
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#0f172a;
+color:white;
+}
+
+header{
+padding:15px;
+background:#020617;
+font-size:20px;
+text-align:center;
+border-bottom:1px solid #1e293b;
+}
+
+#chat{
+height:80vh;
+overflow:auto;
+padding:20px;
+}
+
+.user{
+background:#1e293b;
+padding:12px;
+border-radius:10px;
+margin:10px 0;
+max-width:80%;
+margin-left:auto;
+}
+
+.ai{
+background:#334155;
+padding:12px;
+border-radius:10px;
+margin:10px 0;
+max-width:80%;
+}
+
+#inputArea{
+position:fixed;
+bottom:0;
+width:100%;
+background:#020617;
+padding:10px;
+display:flex;
+}
+
+input{
+flex:1;
+padding:12px;
+font-size:16px;
+border:none;
+border-radius:8px;
+}
+
+button{
+margin-left:10px;
+padding:12px 20px;
+background:#22c55e;
+border:none;
+border-radius:8px;
+color:white;
+font-size:16px;
+}
+</style>
+</head>
+<body>
+<header>
+PANTERRA AI
+</header>
+<div id="chat"></div>
+<div id="inputArea">
+<input id="prompt" placeholder="Ask Panterra AI...">
+<button onclick="send()">Send</button>
+</div>
+<script>
+
+async function send(){
+
+let prompt=document.getElementById("prompt").value
+
+document.getElementById("chat").innerHTML +=
+"<div class='user'>"+prompt+"</div>"
+
+document.getElementById("prompt").value=""
+
+let res = await fetch("https://ungaudy-belle-inequilateral.ngrok-free.dev/chat?prompt="+encodeURIComponent(prompt))
+
+let data = await res.json()
+
+document.getElementById("chat").innerHTML +=
+"<div class='ai'>"+data.response+"</div>"
+
+window.scrollTo(0,document.body.scrollHeight)
+
+}
+
+</script>
+</body>
+</html>
