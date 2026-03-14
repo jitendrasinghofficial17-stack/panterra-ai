@@ -83,19 +83,27 @@ PANTERRA AI
 
 async function send(){
 
-let prompt=document.getElementById("prompt").value
+let prompt = document.getElementById("prompt").value
 
-document.getElementById("chat").innerHTML +=
+document.getElementById("chat").innerHTML += 
 "<div class='user'>"+prompt+"</div>"
+
+// typing indicator
+document.getElementById("chat").innerHTML += 
+"<div id='typing' class='ai'>Panterra AI is typing...</div>"
 
 document.getElementById("prompt").value=""
 
-let res = await fetch("https://ungaudy-belle-inequilateral.ngrok-free.dev/chat?prompt="+encodeURIComponent(prompt))
+let res = await fetch("https://YOUR-NGROK-LINK/chat?prompt="+encodeURIComponent(prompt))
 
 let data = await res.json()
 
-document.getElementById("chat").innerHTML +=
-document.getElementById("chat").innerHTML += "<div class='ai'>"+data.response.replace(/\\n/g,"<br>")+"</div>"
+// remove typing indicator
+document.getElementById("typing").remove()
+
+document.getElementById("chat").innerHTML += 
+"<div class='ai'>"+data.response.replace(/\\n/g,"<br>")+"</div>"
+}
 
 window.scrollTo(0,document.body.scrollHeight)
 
